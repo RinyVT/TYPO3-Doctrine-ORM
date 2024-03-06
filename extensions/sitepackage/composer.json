@@ -1,0 +1,21 @@
+{
+  "name": "rinyvt/sitepackage",
+  "type": "typo3-cms-extension",
+  "description": "Sitepackage",
+  "require": {
+    "typo3/cms-core": "^12.4"
+  },
+  "authors": [
+    {
+      "name": "Riny van Tiggelen",
+      "role": "Developer",
+      "email": "info@online-gamer.nl",
+      "homepage": "rinyvt.com"
+    }
+  ],
+  "extra": {
+    "typo3/cms": {
+      "extension-key": "sitepackage"
+    }
+  }
+}

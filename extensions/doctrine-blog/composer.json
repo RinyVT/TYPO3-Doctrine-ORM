@@ -1,0 +1,35 @@
+{
+  "name": "rinyvt/doctrine-blog",
+  "type": "typo3-cms-extension",
+  "description": "Blog extension based on Doctrine TYPO3",
+  "license": "GPL-2.0-or-later",
+  "require": {
+    "php": "^8.1",
+    "typo3/cms-core": "^12.4",
+    "rinyvt/typo3-doctrine-orm": "*"
+  },
+  "authors": [
+    {
+      "name": "Riny van Tiggelen",
+      "role": "Developer",
+      "email": "info@online-gamer.nl",
+      "homepage": "rinyvt.com"
+    }
+  ],
+  "keywords": [
+    "typo3",
+    "doctrine",
+    "orm",
+    "blog"
+  ],
+  "autoload": {
+    "psr-4": {
+      "RinyVT\\DoctrineBlog\\": "Classes/"
+    }
+  },
+  "extra": {
+    "typo3/cms": {
+      "extension-key": "doctrine_blog"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+.DS_Store
+.idea
+nbproject
+/var/*
+!/var/labels
+/config/system
+/vendor
+/public/*
+!/public/.htaccess

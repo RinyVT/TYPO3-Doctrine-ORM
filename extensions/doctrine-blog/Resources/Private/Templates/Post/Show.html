@@ -1,0 +1,61 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<h1 class="text-4xl font-bold mb-4">{post.title}</h1>
+
+<f:if condition="{post.author}">
+    <div class="mb-4">
+        by {post.author.firstName} {post.author.lastName}
+    </div>
+</f:if>
+
+<div class="border border-gray-300 rounded-lg p-4 mb-4">
+    <f:format.html>{post.content}</f:format.html>
+
+    <details class="mt-5">
+        <summary>Related pages</summary>
+        <ul class="list-disc ml-4">
+            <f:for each="{post.relatedPages}" as="relatedPage">
+                <li>
+                    <f:link.page pageUid="{relatedPage.uid}">{relatedPage.title}</f:link.page>
+                </li>
+            </f:for>
+        </ul>
+    </details>
+</div>
+
+<div class="border border-gray-300 rounded-lg p-4 mb-4">
+    <h2 class="text-2xl mb-4">Comments</h2>
+    <f:if condition="{post.comments}">
+        <f:then>
+            <f:for each="{post.comments}" as="comment">
+                <div class="border border-gray-300 rounded-lg p-4 mb-4">
+                    <div class="text-gray-500 text-sm">
+                        by {comment.name}
+                    </div>
+                    <div class="mt-2">
+                        <f:format.html>{comment.content}</f:format.html>
+                    </div>
+                </div>
+            </f:for>
+        </f:then>
+        <f:else>
+            <p>No comments yet.</p>
+        </f:else>
+    </f:if>
+</div>
+
+<div class="border border-gray-300 rounded-lg p-4 mb-4">
+    <h2 class="text-2xl mb-4">Add a comment</h2>
+    <f:form action="addComment" objectName="newComment" arguments="{post: post.uid}">
+        <f:form.textfield property="name" class="w-full mb-4" />
+        <f:form.textarea property="content" class="w-full mb-4" />
+        <f:form.submit value="Add comment" />
+    </f:form>
+</div>
+
+<div class="mb-4">
+    <f:link.action action="list">Back to list</f:link.action>
+</div>
+
+</html>

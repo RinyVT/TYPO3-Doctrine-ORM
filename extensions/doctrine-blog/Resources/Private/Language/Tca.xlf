@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" date="2021-10-06T21:55:04Z" product-name="doctrine_blog">
+        <header/>
+        <body>
+            <trans-unit id="tx_doctrineblog_entity_post">
+                <source>Post</source>
+            </trans-unit>
+            <trans-unit id="tx_doctrineblog_entity_post.title">
+                <source>Title</source>
+            </trans-unit>
+            <trans-unit id="tx_doctrineblog_entity_post.author">
+                <source>Author</source>
+            </trans-unit>
+            <trans-unit id="tx_doctrineblog_entity_post.content">
+                <source>Content</source>
+            </trans-unit>
+            <trans-unit id="tx_doctrineblog_entity_post.comments">
+                <source>Comments</source>
+            </trans-unit>
+            <trans-unit id="tx_doctrineblog_entity_post.related_pages">
+                <source>Related pages</source>
+            </trans-unit>
+
+            <trans-unit id="tx_doctrineblog_entity_author">
+                <source>Author</source>
+            </trans-unit>
+            <trans-unit id="tx_doctrineblog_entity_author.first_name">
+                <source>First name</source>
+            </trans-unit>
+            <trans-unit id="tx_doctrineblog_entity_author.last_name">
+                <source>Last name</source>
+            </trans-unit>
+
+            <trans-unit id="tx_doctrineblog_entity_comment">
+                <source>Comment</source>
+            </trans-unit>
+            <trans-unit id="tx_doctrineblog_entity_comment.name">
+                <source>Name</source>
+            </trans-unit>
+            <trans-unit id="tx_doctrineblog_entity_comment.content">
+                <source>Content</source>
+            </trans-unit>
+            <trans-unit id="tx_doctrineblog_entity_comment.post">
+                <source>Post</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

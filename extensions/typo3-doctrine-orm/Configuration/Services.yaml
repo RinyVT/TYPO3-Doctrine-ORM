@@ -1,0 +1,57 @@
+services:
+  _defaults:
+    autowire: false
+    autoconfigure: true
+    public: false
+
+  Doctrine\ORM\EntityManagerInterface:
+    alias: Doctrine\ORM\EntityManager
+    public: false
+
+  doctrine.orm.entity_manager:
+    alias: Doctrine\ORM\EntityManagerInterface
+
+  Doctrine\ORM\EntityManager:
+    public: true
+    lazy: true
+    factory: [ 'RinyVT\Typo3DoctrineOrm\Factory\EntityManagerFactory', 'create' ]
+
+  doctrine.orm.default_entity_manager:
+    alias: Doctrine\ORM\EntityManager
+
+  Doctrine\ORM\Mapping\ClassMetadata: ~
+  Doctrine\ORM\Mapping\Driver\AttributeReader: ~
+
+  RinyVT\Typo3DoctrineOrm\:
+    resource: '../Classes/*'
+
+  RinyVT\Typo3DoctrineOrm\EventListener\TcaBuiltListener:
+    arguments:
+      - '@doctrine.orm.entity_manager'
+      - '@RinyVT\Typo3DoctrineOrm\Service\TcaBuilder'
+    tags:
+      - name: event.listener
+        identifier: 'doctrineTca'
+        event: TYPO3\CMS\Core\Configuration\Event\AfterTcaCompilationEvent
+
+  RinyVT\Typo3DoctrineOrm\EventListener\TableDefinitionsListener:
+    arguments:
+      - '@doctrine.orm.entity_manager'
+    tags:
+      - name: event.listener
+        identifier: 'doctrineSchema'
+        event: TYPO3\CMS\Core\Database\Event\AlterTableDefinitionStatementsEvent
+
+  RinyVT\Typo3DoctrineOrm\Service\TcaBuilder:
+    arguments:
+      - '@doctrine.orm.entity_manager'
+      - '@Doctrine\ORM\Mapping\Driver\AttributeReader'
+
+  RinyVT\Typo3DoctrineOrm\Property\TypeConverter\EntityConverter:
+    arguments:
+      - '@doctrine.orm.entity_manager'
+    tags:
+        - name: extbase.type_converter
+          target: object
+          sources: int,string
+          priority: 25

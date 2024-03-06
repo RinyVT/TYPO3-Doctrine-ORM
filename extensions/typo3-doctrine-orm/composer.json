@@ -1,0 +1,43 @@
+{
+  "name": "rinyvt/typo3-doctrine-orm",
+  "type": "typo3-cms-extension",
+  "description": "Doctrine ORM for TYPO3",
+  "license": "GPL-2.0-or-later",
+  "require": {
+    "php": "^8.1",
+    "typo3/cms-core": "^12.4",
+    "doctrine/orm": "^2.10"
+  },
+  "authors": [
+    {
+      "name": "Riny van Tiggelen",
+      "role": "Developer",
+      "email": "info@online-gamer.nl",
+      "homepage": "rinyvt.com"
+    }
+  ],
+  "keywords": [
+    "typo3",
+    "doctrine",
+    "orm"
+  ],
+  "support": {
+    "issues": "https://github.com/RinyVT/typo3-doctrine-orm/issues"
+  },
+  "replace": {
+    "typo3-ter/typo3-doctrine-orm": "self.version"
+  },
+  "autoload": {
+    "psr-4": {
+      "RinyVT\\Typo3DoctrineOrm\\": "Classes/"
+    }
+  },
+  "require-dev": {
+    "nimut/testing-framework": "^4.2 || ^5.1"
+  },
+  "extra": {
+    "typo3/cms": {
+      "extension-key": "typo3_doctrine_orm"
+    }
+  }
+}

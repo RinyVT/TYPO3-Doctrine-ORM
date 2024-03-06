@@ -1,0 +1,18 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<h1 class="text-4xl font-bold mb-4">Posts</h1>
+
+<f:for each="{posts}" as="post">
+    <div class="border border-gray-300 rounded-lg p-4 mb-4">
+        <h2><f:link.action action="show" arguments="{post: post.uid}">{post.title}</f:link.action></h2>
+        <div class="text-gray-500 text-sm">
+            <f:if condition="{post.author}">
+                by {post.author.firstName} {post.author.lastName} -
+            </f:if>
+            <f:count subject="{post.comments}" /> comments
+        </div>
+    </div>
+</f:for>
+
+</html>
