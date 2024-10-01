@@ -4,9 +4,9 @@
   "description": "Doctrine ORM for TYPO3",
   "license": "GPL-2.0-or-later",
   "require": {
-    "php": "^8.1",
-    "typo3/cms-core": "^12.4",
-    "doctrine/orm": "^2.10"
+    "php": "^8.2",
+    "typo3/cms-core": "^13.3",
+    "doctrine/orm": "^3.2"
   },
   "authors": [
     {
@@ -31,9 +31,6 @@
     "psr-4": {
       "RinyVT\\Typo3DoctrineOrm\\": "Classes/"
     }
-  },
-  "require-dev": {
-    "nimut/testing-framework": "^4.2 || ^5.1"
   },
   "extra": {
     "typo3/cms": {

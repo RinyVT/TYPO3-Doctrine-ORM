@@ -6,8 +6,11 @@ namespace RinyVT\Typo3DoctrineOrm\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Mapping\Driver\AttributeReader;
+use Doctrine\ORM\Mapping\FieldMapping;
+use Doctrine\ORM\Mapping\ManyToManyOwningSideMapping;
+use Doctrine\ORM\Mapping\ManyToOneAssociationMapping;
+use Doctrine\ORM\Mapping\OneToManyAssociationMapping;
 use RinyVT\Typo3DoctrineOrm\Mapping\ExtendTable;
 use RinyVT\Typo3DoctrineOrm\Utility\NamingUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -68,12 +71,12 @@ class TcaBuilder
         return [
             'ctrl' => [
                 'title' => $this->llPrefix,
-                'label' => array_key_first($columns)
+                'label' => array_key_first($columns),
             ],
             'columns' => $columns,
             'types' => [
-                0 => ['showitem' => implode(',', array_keys($columns))]
-            ]
+                0 => ['showitem' => implode(',', array_keys($columns))],
+            ],
         ];
     }
 
@@ -87,14 +90,15 @@ class TcaBuilder
             $columnName = NamingUtility::camelCaseToUnderscore($this->determineColumnName($fieldInfo));
             $tcaColumns[$columnName] = [
                 'label' => $this->llPrefix . '.' . NamingUtility::removeIdSuffixFromField($columnName),
-                'config' => $this->getConfig($fieldInfo)
+                'config' => $this->getConfig($fieldInfo),
             ];
         }
         return $tcaColumns;
     }
 
-    protected function determineColumnName(array $fieldInfo): string
-    {
+    protected function determineColumnName(
+        FieldMapping|ManyToOneAssociationMapping|OneToManyAssociationMapping|ManyToManyOwningSideMapping $fieldInfo
+    ): string {
         if (isset($fieldInfo['columnName'])) {
             return $fieldInfo['columnName'];
         }
@@ -106,22 +110,23 @@ class TcaBuilder
         return $fieldInfo['fieldName'];
     }
 
-    protected function getConfig(array $fieldInfo): array
-    {
+    protected function getConfig(
+        FieldMapping|ManyToOneAssociationMapping|OneToManyAssociationMapping|ManyToManyOwningSideMapping $fieldInfo
+    ): array {
         return match ($fieldInfo['type']) {
-            ClassMetadataInfo::ONE_TO_ONE, ClassMetadataInfo::MANY_TO_ONE => $this->selectSingle($fieldInfo),
-            ClassMetadataInfo::ONE_TO_MANY => $this->inlineRecords($fieldInfo),
-            ClassMetadataInfo::MANY_TO_MANY => $this->mmTable($fieldInfo),
+            ClassMetadata::ONE_TO_ONE, ClassMetadata::MANY_TO_ONE => $this->selectSingle($fieldInfo),
+            ClassMetadata::ONE_TO_MANY => $this->inlineRecords($fieldInfo),
+            ClassMetadata::MANY_TO_MANY => $this->mmTable($fieldInfo),
             'text' => [
-                'type' => 'text'
+                'type' => 'text',
             ],
             default => [
-                'type' => 'input'
+                'type' => 'input',
             ],
         };
     }
 
-    protected function selectSingle(array $fieldInfo): array
+    protected function selectSingle(ManyToOneAssociationMapping $fieldInfo): array
     {
         return [
             'type' => 'select',
@@ -130,21 +135,21 @@ class TcaBuilder
         ];
     }
 
-    protected function inlineRecords(array $fieldInfo): array
+    protected function inlineRecords(OneToManyAssociationMapping $fieldInfo): array
     {
         return [
             'type' => 'inline',
             'foreign_table' => $this->entityManager->getClassMetadata($fieldInfo['targetEntity'])->getTableName(),
-            'foreign_field' => NamingUtility::addIdSuffixToField($fieldInfo['mappedBy'])
+            'foreign_field' => NamingUtility::addIdSuffixToField($fieldInfo['mappedBy']),
         ];
     }
 
-    protected function mmTable(array $fieldInfo): array
+    protected function mmTable(ManyToManyOwningSideMapping $fieldInfo): array
     {
         return [
             'type' => 'group',
             'allowed' => $this->entityManager->getClassMetadata($fieldInfo['targetEntity'])->getTableName(),
-            'MM' => $fieldInfo['joinTable']['name']
+            'MM' => $fieldInfo['joinTable']['name'],
         ];
     }
 }

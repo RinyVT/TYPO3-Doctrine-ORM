@@ -10,7 +10,7 @@
   ],
   "config": {
     "platform": {
-      "php": "8.1"
+      "php": "8.2"
     },
     "sort-packages": true,
     "allow-plugins": {
@@ -25,7 +25,7 @@
     "typo3/cms-backend": "*",
     "typo3/cms-belog": "*",
     "typo3/cms-beuser": "*",
-    "typo3/cms-core": "^12.4",
+    "typo3/cms-core": "^13.3",
     "typo3/cms-dashboard": "*",
     "typo3/cms-extbase": "*",
     "typo3/cms-extensionmanager": "*",

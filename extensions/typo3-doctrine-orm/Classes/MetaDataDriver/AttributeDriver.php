@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace RinyVT\Typo3DoctrineOrm\MetaDataDriver;
 
-use Doctrine\ORM\Mapping\ClassMetadataInfo;
+use Doctrine\ORM\Mapping\Driver\AttributeReader;
 use Doctrine\ORM\Mapping\Table;
 use Doctrine\Persistence\Mapping\ClassMetadata;
 use RinyVT\Typo3DoctrineOrm\Mapping\ExtendTable;
@@ -15,11 +15,12 @@ class AttributeDriver extends \Doctrine\ORM\Mapping\Driver\AttributeDriver
     public function loadMetadataForClass($className, ClassMetadata $metadata): void
     {
         parent::loadMetadataForClass($className, $metadata);
-        assert($metadata instanceof ClassMetadataInfo);
+        assert($metadata instanceof ClassMetadata);
 
         // Already created in parent
         $reflectionClass = $metadata->getReflectionClass();
-        $classAttributes = $this->reader->getClassAttributes($reflectionClass);
+        $reader = new AttributeReader();
+        $classAttributes = $reader->getClassAttributes($reflectionClass);
 
         // Set table name if not set
         if (!isset($classAttributes[Table::class])) {

@@ -6,7 +6,7 @@ namespace RinyVT\Typo3DoctrineOrm\Mapping;
 
 use Attribute;
 use Doctrine\Common\Annotations\Annotation\NamedArgumentConstructor;
-use Doctrine\ORM\Mapping\Annotation;
+use Doctrine\ORM\Mapping\MappingAttribute;
 
 /**
  * @Annotation
@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping\Annotation;
  * @Target("CLASS")
  */
 #[Attribute(Attribute::TARGET_CLASS)]
-final class ExtendTable implements Annotation
+final class ExtendTable implements MappingAttribute
 {
     /** @var string|null */
     public ?string $name = null;

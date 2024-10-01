@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RinyVT\Typo3DoctrineOrm\EventListener;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\ClassMetadataInfo;
+use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Tools\SchemaTool;
 use RinyVT\Typo3DoctrineOrm\Utility\NamingUtility;
 use TYPO3\CMS\Core\Database\Event\AlterTableDefinitionStatementsEvent;
@@ -37,7 +37,7 @@ class TableDefinitionsListener
         // create (counter) fields for associations in parent table (TYPO3 specific)
         foreach ($allMetaData as $classMetaData) {
             foreach ($classMetaData->getAssociationMappings() as $associationMapping) {
-                if (!in_array($associationMapping['type'], [ClassMetadataInfo::ONE_TO_MANY, ClassMetadataInfo::MANY_TO_MANY], true)) {
+                if (!in_array($associationMapping['type'], [ClassMetadata::ONE_TO_MANY, ClassMetadata::MANY_TO_MANY], true)) {
                     continue;
                 }
                 $event->addSqlData(
